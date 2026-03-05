@@ -3,7 +3,7 @@
 # =========================
 # 1️⃣ Build Stage
 # =========================
-FROM gradle:jdk24-graal AS builder
+FROM gradle:jdk21-graal AS builder
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN gradle build --no-daemon
 # =========================
 # 2️⃣ Layer Extract Stage
 # =========================
-FROM container-registry.oracle.com/graalvm/jdk:24 AS extractor
+FROM container-registry.oracle.com/graalvm/jdk:21 AS extractor
 
 WORKDIR /app
 
@@ -34,7 +34,7 @@ RUN java -Djarmode=layertools -jar app.jar extract
 # =========================
 # 3️⃣ Runtime Stage
 # =========================
-FROM container-registry.oracle.com/graalvm/jdk:24
+FROM container-registry.oracle.com/graalvm/jdk:21
 
 WORKDIR /app
 
