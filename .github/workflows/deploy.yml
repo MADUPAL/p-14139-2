@@ -122,7 +122,7 @@ jobs:
           docker pull $IMAGE
           docker stop app1 2>/dev/null || true
           docker rm app1 2>/dev/null || true
-          docker run -d --name app1 -p 8080:8080 $IMAGE
+          docker run -d --name app1 --network=app-network -p 8080:8080 $IMAGE
           docker rmi \$(docker images -f dangling=true -q) 2>/dev/null || true
           DEPLOY
           )
